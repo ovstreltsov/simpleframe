@@ -49,7 +49,7 @@ class SimpleFrame extends JFrame {
 
                 panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
-
+                panel.setBackground(Color.WHITE);
                 panel.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -87,9 +87,7 @@ class BallThread extends Thread {
         }
 
         public void run() {
-                int dx = -dy;
-                int dy = -dx;
-
+                
                 while (true) {
                         posX += dx;
                         posY += dy;
@@ -102,12 +100,16 @@ class BallThread extends Thread {
                         else if (posY <= 5)
                                 dy = -dy;
                         paint(panel.getGraphics());
-                }
+                        try {
+                        	sleep(50);
+                        }
+                        catch(InterruptedException ie){}
+                        }
         }
 
         public void paint(Graphics g) {
                 g.setColor(Color.WHITE);
-                g.drawOval(posX - 25-dx, posY - 25, 50, 50);
+                g.drawOval(posX - 25-dx, posY - 25-dy, 50, 50);
                 g.setColor(Color.BLACK);
                 g.drawOval(posX - 25, posY - 25, 50, 50);
         }
